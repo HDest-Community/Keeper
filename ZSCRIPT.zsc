@@ -6,9 +6,9 @@ class KeeperHandler : StaticEventHandler
 	{
 		let plr = HDPlayerPawn(players[e.PlayerNumber].mo);
 		let Restorer = StatRestorer(plr.GiveInventoryType('StatRestorer'));
-		Restorer.Blues = plr.regenblues * 0.75;
-		Restorer.Aggro = plr.aggravateddamage * 0.60;
-		Restorer.Burns = plr.burncount * 0.60;
+		Restorer.Blues = int(plr.regenblues * 0.75);
+		Restorer.Aggro = int(plr.aggravateddamage * 0.60);
+		Restorer.Burns = int(plr.burncount * 0.60);
 	}
 }
 
