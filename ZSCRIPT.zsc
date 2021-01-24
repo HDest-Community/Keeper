@@ -1,6 +1,6 @@
 version "4.0"
 
-class KeeperHandler : EventHandler
+class KeeperHandler : StaticEventHandler
 {
 	override void PlayerDied(PlayerEvent e)
 	{
