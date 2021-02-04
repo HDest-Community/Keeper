@@ -8,9 +8,12 @@ class KeeperHandler : EventHandler
 		if (plr)
 		{
 			let Restorer = StatRestorer(plr.GiveInventoryType('StatRestorer'));
-			Restorer.Blues = int(plr.regenblues * 0.60);
-			Restorer.Aggro = int(plr.aggravateddamage * 0.60);
-			Restorer.Burns = int(plr.burncount * 0.60);
+			if (Restorer)
+			{
+				Restorer.Blues = int(plr.regenblues * 0.60);
+				Restorer.Aggro = int(plr.aggravateddamage * 0.60);
+				Restorer.Burns = int(plr.burncount * 0.60);
+			}
 		}
 	}
 }
