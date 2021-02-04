@@ -5,10 +5,13 @@ class KeeperHandler : EventHandler
 	override void PlayerDied(PlayerEvent e)
 	{
 		let plr = HDPlayerPawn(players[e.PlayerNumber].mo);
-		let Restorer = StatRestorer(plr.GiveInventoryType('StatRestorer'));
-		Restorer.Blues = int(plr.regenblues * 0.75);
-		Restorer.Aggro = int(plr.aggravateddamage * 0.60);
-		Restorer.Burns = int(plr.burncount * 0.60);
+		if (plr)
+		{
+			let Restorer = StatRestorer(plr.GiveInventoryType('StatRestorer'));
+			Restorer.Blues = int(plr.regenblues * 0.75);
+			Restorer.Aggro = int(plr.aggravateddamage * 0.60);
+			Restorer.Burns = int(plr.burncount * 0.60);
+		}
 	}
 }
 
