@@ -1,0 +1,1 @@
+server float keeper_percent = 0.6;
