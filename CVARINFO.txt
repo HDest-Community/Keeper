@@ -1,1 +1,3 @@
-server float keeper_percent = 0.6;
+server float keeper_percent_blues = 0.6;
+server float keeper_percent_burns = 0.6;
+server float keeper_percent_aggro = 0.6;

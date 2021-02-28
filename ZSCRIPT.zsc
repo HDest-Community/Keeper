@@ -10,10 +10,9 @@ class KeeperHandler : EventHandler
 			let Restorer = StatRestorer(plr.GiveInventoryType('StatRestorer'));
 			if (Restorer)
 			{
-				double Percent = clamp(keeper_percent, 0, 1.0);
-				Restorer.Blues = int(plr.regenblues * Percent);
-				Restorer.Aggro = int(plr.aggravateddamage * Percent);
-				Restorer.Burns = int(plr.burncount * Percent);
+				Restorer.Blues = int(plr.regenblues * clamp(keeper_percent_blues, 0, 1.0));
+				Restorer.Burns = int(plr.burncount * clamp(keeper_percent_burns, 0, 1.0));
+				Restorer.Aggro = int(plr.aggravateddamage * clamp(keeper_percent_aggro, 0, 1.0));
 			}
 		}
 	}
