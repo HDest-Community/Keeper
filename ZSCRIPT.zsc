@@ -23,7 +23,7 @@ class StatRestorer : Inventory
 {
 	override void DoEffect()
 	{
-		if (Health > 0 && ++AliveTicker > 2)
+		if (owner && Health > 0 && ++AliveTicker > 2)
 		{
 			let plr = HDPlayerPawn(owner);
 			plr.regenblues = Blues;
