@@ -13,6 +13,7 @@ class KeeperHandler : EventHandler
 				Restorer.Blues = int(plr.CountInv('HDBlues') * clamp(keeper_percent_blues, 0, 1.0));
 				Restorer.Burns = int(plr.burncount * clamp(keeper_percent_burns, 0, 1.0));
 				Restorer.Aggro = int(plr.aggravateddamage * clamp(keeper_percent_aggro, 0, 1.0));
+				Restorer.Bloodloss = int(plr.bloodloss * clamp(keeper_percent_blood, 0, 1.0));
 			}
 		}
 	}
@@ -28,7 +29,8 @@ class StatRestorer : Inventory
 		{
 			plr.A_GiveInventory('HDBlues', Blues);
 			plr.aggravateddamage = Aggro;
-			plr.burncount =  Burns;
+			plr.burncount = Burns;
+			plr.bloodloss += Bloodloss; // [Ace] Add to PoF's bloodloss.
 
 			Destroy();
 			return;
@@ -42,6 +44,7 @@ class StatRestorer : Inventory
 	int Blues;
 	int Aggro;
 	int Burns;
+	int Bloodloss;
 
 	Default
 	{
