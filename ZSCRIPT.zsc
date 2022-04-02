@@ -7,13 +7,29 @@ class KeeperHandler : EventHandler
 		let plr = HDPlayerPawn(players[e.PlayerNumber].mo);
 		if (plr)
 		{
-			let Restorer = StatRestorer(plr.GiveInventoryType('StatRestorer'));
-			if (Restorer)
+			let restorer = StatRestorer(plr.GiveInventoryType('StatRestorer'));
+			if (restorer)
 			{
-				Restorer.Blues = int(plr.CountInv('HDBlues') * clamp(keeper_percent_blues, 0, 1.0));
-				Restorer.Burns = int(plr.burncount * clamp(keeper_percent_burns, 0, 1.0));
-				Restorer.Aggro = int(plr.aggravateddamage * clamp(keeper_percent_aggro, 0, 1.0));
-				Restorer.Bloodloss = int(plr.bloodloss * clamp(keeper_percent_blood, 0, 1.0));
+				restorer.Burns = int(plr.burncount * clamp(keeper_percent_burns, 0, 1.0));
+				restorer.Aggro = int(plr.aggravateddamage * clamp(keeper_percent_aggro, 0, 1.0));
+				restorer.Bloodloss = int(plr.bloodloss * clamp(keeper_percent_blood, 0, 1.0));
+
+				Name diseaseClsName = 'DiseaseBase';
+				if (keeper_percent_diseases > 0 && (class<Inventory>)(diseaseClsName))
+				{
+					for (Inventory next = plr.Inv; next != null; next = next.Inv)
+					{
+						if (next is diseaseClsName)
+						{
+							int amt = int(next.Amount * clamp(keeper_percent_diseases, 0, 1.0));
+							if (amt > 0)
+							{
+								restorer.DiseaseClasses.Push(next.GetClass());
+								restorer.DiseaseAmounts.Push(amt);
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -27,10 +43,14 @@ class StatRestorer : Inventory
 		let plr = HDPlayerPawn(owner);
 		if (plr && plr.Health > 0 && ++AliveTicker > 2)
 		{
-			plr.A_GiveInventory('HDBlues', Blues);
 			plr.aggravateddamage = Aggro;
 			plr.burncount = Burns;
 			plr.bloodloss += Bloodloss; // [Ace] Add to PoF's bloodloss.
+
+			for (int i = 0; i < DiseaseClasses.Size(); ++i)
+			{
+				plr.A_GiveInventory(DiseaseClasses[i], DiseaseAmounts[i]);
+			}
 
 			Destroy();
 			return;
@@ -45,6 +65,9 @@ class StatRestorer : Inventory
 	int Aggro;
 	int Burns;
 	int Bloodloss;
+
+	Array<class<Inventory> > DiseaseClasses;
+	Array<int> DiseaseAmounts;
 
 	Default
 	{
