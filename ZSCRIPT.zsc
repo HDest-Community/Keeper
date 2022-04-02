@@ -61,7 +61,6 @@ class StatRestorer : Inventory
 
 	int AliveTicker;
 
-	int Blues;
 	int Aggro;
 	int Burns;
 	int Bloodloss;
