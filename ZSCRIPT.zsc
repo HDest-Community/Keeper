@@ -50,6 +50,10 @@ class StatRestorer : Inventory
 			plr.woundcount = OpenWounds;
 			plr.unstablewoundcount = UnstableWounds;
 			plr.oldwoundcount = TreatedWounds;
+			if (TreatedWounds > 0)
+			{
+				plr.A_GiveInventory('SecondFlesh', int(TreatedWounds * 0.75));
+			}
 
 			plr.aggravateddamage = Aggro;
 			plr.burncount = Burns;
